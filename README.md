@@ -1,66 +1,117 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+1. Tabela: Użytkownicy (uzytkownicy)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+    id: unikalny identyfikator użytkownika.
+    nazwa_uzytkownika: nazwa użytkownika.
+    haslo: hasło (przechowywane w formie zaszyfrowanej).
+    email: adres e-mail użytkownika.
+    rola: rola użytkownika (administrator, klient, pracownik).
+    data_utworzenia: data utworzenia konta.
+    data_aktualizacji: data ostatniej modyfikacji konta.
 
-## About Laravel
+2. Tabela: Koty (koty)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+    id: unikalny identyfikator kota.
+    nazwa: imię kota.
+    rasa: rasa kota.
+    wiek: wiek kota.
+    kolor: kolor kota.
+    plec: płeć kota.
+    właściciel_id: klucz obcy do tabeli uzytkownicy, wskazujący właściciela kota.
+    opis: opis kota (np. cechy charakterystyczne).
+    data_utworzenia: data dodania kota do systemu.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+3. Tabela: Wystawy (wystawy)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+    id: unikalny identyfikator wystawy.
+    nazwa: nazwa wystawy.
+    data_rozpoczecia: data rozpoczęcia wystawy.
+    data_zakonczenia: data zakończenia wystawy.
+    miejsce: miejsce wystawy.
+    opis: opis wystawy.
+    data_utworzenia: data dodania wystawy.
 
-## Learning Laravel
+4. Tabela: Kategorie (kategorie)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+    id: unikalny identyfikator kategorii.
+    nazwa: nazwa kategorii (np. "Perski", "Maine Coon").
+    opis: opis kategorii.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+5. Tabela: Oceny (oceny)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+    id: unikalny identyfikator oceny.
+    kot_id: klucz obcy do tabeli koty, wskazujący oceniany kot.
+    wystawa_id: klucz obcy do tabeli wystawy, wskazujący wystawę.
+    sedzia_id: klucz obcy do tabeli uzytkownicy, wskazujący sędziego.
+    ocena: ocena (np. w skali 1-10).
+    komentarze: uwagi sędziego.
+    data_oceny: data oceny.
 
-## Laravel Sponsors
+6. Tabela: Bilety (bilety)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+    id: unikalny identyfikator biletu.
+    klient_id: klucz obcy do tabeli uzytkownicy, wskazujący klienta, który zakupił bilet.
+    wystawa_id: klucz obcy do tabeli wystawy, wskazujący wystawę.
+    rodzaj_biletu: rodzaj biletu (np. "normalny", "ulgowy").
+    cena: cena biletu.
+    data_zakupu: data zakupu biletu.
 
-### Premium Partners
+7. Tabela: Zamówienia (zamowienia)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+    id: unikalny identyfikator zamówienia.
+    klient_id: klucz obcy do tabeli uzytkownicy, wskazujący klienta.
+    data_zamowienia: data złożenia zamówienia.
+    cena_calkowita: całkowita cena zamówienia.
+    status: status zamówienia (np. "oczekujące", "zrealizowane").
+    status_platnosci: status płatności (np. "oczekująca", "zapłacona").
 
-## Contributing
+8. Tabela: Szczegóły Zamówienia (szczegoly_zamowienia)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    id: unikalny identyfikator szczegółu zamówienia.
+    zamowienie_id: klucz obcy do tabeli zamowienia.
+    bilet_id: klucz obcy do tabeli bilety.
+    ilosc: liczba zakupionych biletów.
+    cena: cena jednostkowa biletu.
+    cena_calkowita: całkowita cena za ten szczegół zamówienia.
 
-## Code of Conduct
+9. Tabela: Pracownicy (pracownicy)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    id: unikalny identyfikator pracownika.
+    uzytkownik_id: klucz obcy do tabeli uzytkownicy, wskazujący pracownika.
+    rola: rola pracownika (np. "rejestracja", "obsługa klienta").
+    data_zatrudnienia: data zatrudnienia pracownika.
 
-## Security Vulnerabilities
+10. Tabela: Logi (logi)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    id: unikalny identyfikator logu.
+    uzytkownik_id: klucz obcy do tabeli uzytkownicy, wskazujący użytkownika, który wykonał akcję.
+    akcja: opis wykonanej akcji (np. "zakupiono bilet", "zarejestrowano kota").
+    data_akcji: data wykonania akcji.
 
-## License
+11. Tabela: Metody Płatności (metody_platnosci)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+    id: unikalny identyfikator metody płatności.
+    nazwa: nazwa metody płatności (np. "Karta kredytowa", "PayPal").
+    opis: opis metody płatności.
+
+12. Tabela: Sponsorzy (sponsorzy)
+
+    id: unikalny identyfikator sponsora.
+    nazwa: nazwa sponsora.
+    dane_kontaktowe: dane kontaktowe sponsora.
+    wniosek: wysokość wkładu finansowego sponsora.
+    data_utworzenia: data dodania sponsora.
+
+Uprawnienia Użytkowników
+
+    Administrator: pełny dostęp do wszystkich funkcji systemu. Może zarządzać użytkownikami, wystawami, kategoriami kotów, ocenami, zamówieniami, pracownikami i logami.
+    Klient: użytkownik, który może przeglądać dostępne wystawy, rejestrować koty, przeglądać oceny swoich kotów, zakupić bilety na wystawę oraz zarządzać swoimi zamówieniami.
+    Pracownik: użytkownik, który może rejestrować koty na wystawę, obsługiwać zamówienia biletów i oceniać koty. Pracownicy nie mają dostępu do zarządzania użytkownikami ani wystawami.
+
+Frontend i Backend
+
+    Frontend (dla klienta): Widok umożliwiający przeglądanie dostępnych wystaw, zakupu biletów, przeglądania ocen kotów oraz zarządzania swoimi zamówieniami.
+    Backend (dla pracowników): Panel administracyjny, w którym pracownicy mogą rejestrować koty, oceniać je, zarządzać zamówieniami biletów i pomagać klientom.
+
+Migracje i Seedery
+
+Migracje i seedery mogą być użyte do automatycznego tworzenia tabel i dodawania przykładowych danych do bazy. Dzięki migracjom, strukturę bazy danych można łatwo zaimplementować i modyfikować. Migracje będą także odpowiedzialne za dodanie przykładowych danych, takich jak konta użytkowników, koty, wystawy czy bilety.
