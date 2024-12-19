@@ -1,3 +1,4 @@
+===projekt_koty===
 1. Tabela: Użytkownicy (uzytkownicy)
 
     id: unikalny identyfikator użytkownika.
