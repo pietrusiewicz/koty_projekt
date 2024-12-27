@@ -1,0 +1,32 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up()
+{
+    Schema::create('uzytkownicy', function (Blueprint $table) {
+        $table->id();
+        $table->string('nazwa_uzytkownika');
+        $table->string('haslo');
+        $table->string('email')->unique();
+        $table->enum('rola', ['administrator', 'klient', 'pracownik']);
+        $table->timestamps();
+    });
+}
+
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('uzytkownicy');
+    }
+};
