@@ -9,13 +9,18 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('pracownicy', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
+    public function up()
+{
+    Schema::create('pracownicy', function (Blueprint $table) {
+        $table->id();
+        $table->unsignedBigInteger('uzytkownik_id');
+        $table->string('rola');
+        $table->date('data_zatrudnienia');
+        $table->timestamps();
+
+        $table->foreign('uzytkownik_id')->references('id')->on('uzytkownicy')->onDelete('cascade');
+    });
+}
 
     /**
      * Reverse the migrations.
