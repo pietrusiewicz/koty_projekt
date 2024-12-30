@@ -15,7 +15,7 @@ return new class extends Migration
         $table->id();
         $table->string('nazwa');
         $table->text('dane_kontaktowe');
-        $table->decimal('wniosek', 10, 2);
+        $table->decimal('wniosek', 10, 2)->nullable()->comment('Wkład finansowy sponsora');
         $table->timestamps();
     });
 }

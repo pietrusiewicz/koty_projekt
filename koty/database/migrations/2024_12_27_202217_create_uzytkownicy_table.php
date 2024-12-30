@@ -16,7 +16,7 @@ return new class extends Migration
         $table->string('nazwa_uzytkownika');
         $table->string('haslo');
         $table->string('email')->unique();
-        $table->enum('rola', ['administrator', 'klient', 'pracownik']);
+        $table->enum('rola', ['administrator', 'klient', 'pracownik', 'sedzia']);
         $table->timestamps();
     });
 }

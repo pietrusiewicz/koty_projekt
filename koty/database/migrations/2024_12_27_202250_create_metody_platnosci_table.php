@@ -10,14 +10,14 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up()
-{
-    Schema::create('metody_platnosci', function (Blueprint $table) {
-        $table->id();
-        $table->string('nazwa');
-        $table->text('opis')->nullable();
-        $table->timestamps();
-    });
-}
+    {
+        Schema::create('metody_platnosci', function (Blueprint $table) {
+            $table->id();
+            $table->string('nazwa');  // Nazwa metody płatności
+            $table->text('opis')->nullable();  // Opcjonalny opis metody płatności
+            $table->timestamps();
+        });
+    }
 
 
     /**

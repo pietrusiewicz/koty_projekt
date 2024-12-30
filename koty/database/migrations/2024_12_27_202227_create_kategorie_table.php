@@ -4,19 +4,20 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateKategorieTable extends Migration
 {
     /**
      * Run the migrations.
      */
-    public function up()
-{
-    Schema::create('kategorie', function (Blueprint $table) {
-        $table->id();
-        $table->string('nazwa');
-        $table->text('opis')->nullable();
-    });
-}
+    public function up(): void
+    {
+        Schema::create('kategorie', function (Blueprint $table) {
+            $table->id(); // unikalny identyfikator
+            $table->string('nazwa', 255); // nazwa kategorii
+            $table->text('opis')->nullable(); // opis kategorii
+            $table->timestamps(); // data utworzenia i aktualizacji
+        });
+    }
 
     /**
      * Reverse the migrations.
@@ -25,4 +26,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('kategorie');
     }
-};
+}
