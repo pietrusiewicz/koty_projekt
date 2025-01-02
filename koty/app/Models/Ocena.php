@@ -36,4 +36,7 @@ class Ocena extends Model
     {
         return $this->belongsTo(Uzytkownik::class, 'sedzia_id');
     }
+	protected $dates = [
+        'data_oceny', 
+    ];
 }

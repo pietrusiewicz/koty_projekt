@@ -17,18 +17,16 @@ class Kot extends Model
         'kolor',
         'plec',
         'wlasciciel_id',
+		'kategoria_id',
         'opis',
     ];
-
-    // Relacja: Kot należy do użytkownika (właściciela)
-    public function wlasciciel()
+	public function wlasciciel()
     {
         return $this->belongsTo(Uzytkownik::class, 'wlasciciel_id');
     }
+	public function kategoria()
+	{
+		return $this->belongsTo(Kategorie::class, 'kategoria_id');
+	}
 
-    // Relacja: Kot może być oceniany wiele razy
-    public function oceny()
-    {
-        return $this->hasMany(Ocena::class, 'kot_id');
-    }
 }

@@ -1,16 +1,22 @@
 <?php
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 
 class Uzytkownik extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $table = 'uzytkownicy';
-
-    protected $fillable = [
+	
+	protected $primaryKey = 'id';
+    
+	protected $fillable = [
         'nazwa_uzytkownika',
         'haslo',
         'email',
@@ -18,8 +24,22 @@ class Uzytkownik extends Authenticatable
     ];
 
     protected $hidden = [
-        'haslo',
+        'haslo', // ukrywanie hasła w odpowiedziach JSON
+        'remember_token',
     ];
+	
+	public function getAuthPassword()
+    {
+        return $this->haslo;
+    }
+	
+	protected $attributes = [
+		'rola' => 'klient',
+	];
+	public function setPasswordAttribute($value)
+    {
+        $this->attributes['haslo'] = bcrypt($value);
+    }
 
     // Relacja: Użytkownik ma wiele kotów
     public function koty()
