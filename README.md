@@ -1,7 +1,7 @@
-# Uruchomienie aplikacji Laravel za pomocą Dockerfile w systemie Windows
+# Uruchomienie aplikacji Laravel za pomocą Dockera
 
 ## Wymagania wstępne:
-- Zainstalowany Docker na systemie Windows.
+- Zainstalowany Docker na komputerze.
 
 ## Instrukcja krok po kroku:
 
