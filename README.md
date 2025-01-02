@@ -22,12 +22,12 @@ Wejdź do kontenera, aby wykonać polecenia wewnątrz środowiska kontenera:<br/
 ### 3. Tworzenie projektu Laravel
 
 Wewnątrz kontenera wykonaj następujące polecenia:
-<code>
+<code><pre>
 mkdir koty
 mkdir koty2 && mv koty koty2
 composer create-project --prefer-dist laravel/laravel koty
 mv koty2 koty
-</code>
+</pre></code>
 
 ### 4. Uruchomienie aplikacji Laravel
 
