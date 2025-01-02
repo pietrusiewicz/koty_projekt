@@ -1,4 +1,4 @@
-# README - Struktura bazy danych aplikacji "Wystawy Kotów"
+# tabele bazy danych aplikacji "Wystawy Kotów"
 
 ## Tabele bazy danych
 
