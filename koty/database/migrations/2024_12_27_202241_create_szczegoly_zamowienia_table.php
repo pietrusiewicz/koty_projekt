@@ -13,8 +13,8 @@ return new class extends Migration
 {
     Schema::create('szczegoly_zamowienia', function (Blueprint $table) {
         $table->id();
-        $table->unsignedBigInteger('zamowienie_id');
-        $table->unsignedBigInteger('bilet_id');
+        $table->unsignedBigInteger('zamowienie_id')->onDelete('cascade');
+        $table->unsignedBigInteger('bilet_id')->onDelete('cascade');
         $table->integer('ilosc');
         $table->decimal('cena', 8, 2);
         $table->decimal('cena_calkowita', 8, 2);

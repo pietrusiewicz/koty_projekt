@@ -15,7 +15,7 @@ return new class extends Migration
         $table->id();
         $table->unsignedBigInteger('klient_id');
         $table->date('data_zamowienia');
-        $table->decimal('cena_calkowita', 8, 2);
+        $table->decimal('cena_calkowita', 10, 2);
         $table->enum('status', ['oczekujące', 'zrealizowane']);
         $table->enum('status_platnosci', ['oczekująca', 'zapłacona']);
         $table->timestamps();
