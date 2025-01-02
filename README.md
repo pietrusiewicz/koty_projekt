@@ -2,7 +2,6 @@
 
 ## Wymagania wstępne:
 - Zainstalowany Docker na systemie Windows.
-- Aplikacja Laravel zainstalowana przy użyciu `php artisan` bez Composer w kontenerze.
 
 ## Instrukcja krok po kroku:
 
