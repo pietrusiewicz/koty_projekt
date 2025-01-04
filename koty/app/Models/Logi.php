@@ -20,4 +20,12 @@ class Logi extends Model
     {
         return $this->belongsTo(Uzytkownik::class, 'uzytkownik_id');
     }
+	public static function utworzLogi(string $trescAkcji )
+    {
+        return self::create([
+			'uzytkownik_id' => session('user')['id'], // Identyfikator klienta
+			'akcja' => $trescAkcji,
+			'data_akcji' => now(),
+        ]);
+    }
 }

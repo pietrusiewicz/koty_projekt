@@ -27,7 +27,7 @@ class MetodyPlatnosciController extends Controller
         ]);
 
         MetodyPlatnosci::create($request->all());
-        return redirect()->route('metody_platnosci.index')->with('success', 'Metoda płatności została dodana!');
+        return redirect()->route('metody-platnosci.index')->with('success', 'Metoda płatności została dodana!');
     }
 
     public function show(MetodyPlatnosci $metodyPlatnosci)

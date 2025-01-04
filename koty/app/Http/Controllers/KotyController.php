@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kot;
 use App\Models\Uzytkownik;
+use App\Models\Logi;
 use App\Models\Kategorie;
 use Illuminate\Http\Request;
 
@@ -28,19 +29,31 @@ class KotyController extends Controller
     // Zapisywanie nowego kota do bazy danych
     public function store(Request $request)
 	{
-		// Walidacja danych z formularza
-		$validated = $request->validate([
-			'nazwa' => 'required|string|max:255',
-			'rasa' => 'required|string|max:255',
-			'wiek' => 'required|integer|min:0',
-			'kolor' => 'required|string|max:255',
-			'plec' => 'required|in:m,f', // 'm' lub 'f'
-			'wlasciciel_id' => 'required|exists:uzytkownicy,id', // Sprawdza, czy właściciel istnieje
-			'kategoria_id' => 'nullable|exists:kategorie,id',
-			'opis' => 'nullable|string',
-		]);
-
-		// Jeśli walidacja przejdzie, zapisz dane do bazy
+		if (in_array(session('user')->rola, ['administrator', 'pracownik'])) 
+			// Walidacja danych z formularza
+			$validated = $request->validate([
+				'nazwa' => 'required|string|max:255',
+				'rasa' => 'required|string|max:255',
+				'wiek' => 'required|integer|min:0',
+				'kolor' => 'required|string|max:255',
+				'plec' => 'required|in:m,f', // 'm' lub 'f'
+				'wlasciciel_id' => 'required|exists:uzytkownicy,id', // Sprawdza, czy właściciel istnieje
+				'kategoria_id' => 'nullable|exists:kategorie,id',
+				'opis' => 'nullable|string',
+			]);
+		else {
+			$validated = $request->validate([
+				'nazwa' => 'required|string|max:255',
+				'rasa' => 'required|string|max:255',
+				'wiek' => 'required|integer|min:0',
+				'kolor' => 'required|string|max:255',
+				'plec' => 'required|in:m,f', // 'm' lub 'f'
+				//'wlasciciel_id' => 'required|exists:uzytkownicy,id', // Sprawdza, czy właściciel istnieje
+				'kategoria_id' => 'nullable|exists:kategorie,id',
+				'opis' => 'nullable|string',
+			]);
+			$validated['wlasciciel_id'] = session('user')['id'];
+		}
 		Kot::create([
 			'nazwa' => $validated['nazwa'],
 			'rasa' => $validated['rasa'],
@@ -51,6 +64,7 @@ class KotyController extends Controller
 			'kategoria_id' => $validated['kategoria_id'],
 			'opis' => $validated['opis'],
 		]);
+		Logi::utworzLogi('dodanie kota');
 
 		// Przekierowanie z komunikatem sukcesu
 		return redirect()->route('koty.index')->with('success', 'Kot został dodany.');
@@ -68,15 +82,31 @@ class KotyController extends Controller
 		$kot = Kot::findOrFail($id);
 		
 		// Walidacja danych
+		if (in_array(session('user')->rola, ['administrator', 'pracownik'])) 
+		// Walidacja danych z formularza
 		$validated = $request->validate([
 			'nazwa' => 'required|string|max:255',
 			'rasa' => 'required|string|max:255',
-			'wiek' => 'required|integer',
+			'wiek' => 'required|integer|min:0',
 			'kolor' => 'required|string|max:255',
-			'plec' => 'required|in:m,f',
-			'wlasciciel_id' => 'required|exists:uzytkownicy,id',  // Sprawdź, czy poprawna nazwa pola
+			'plec' => 'required|in:m,f', // 'm' lub 'f'
+			'wlasciciel_id' => 'required|exists:uzytkownicy,id', // Sprawdza, czy właściciel istnieje
+			'kategoria_id' => 'nullable|exists:kategorie,id',
 			'opis' => 'nullable|string',
 		]);
+		else {
+			$validated = $request->validate([
+				'nazwa' => 'required|string|max:255',
+				'rasa' => 'required|string|max:255',
+				'wiek' => 'required|integer|min:0',
+				'kolor' => 'required|string|max:255',
+				'plec' => 'required|in:m,f', // 'm' lub 'f'
+				//'wlasciciel_id' => 'required|exists:uzytkownicy,id', // Sprawdza, czy właściciel istnieje
+				'kategoria_id' => 'nullable|exists:kategorie,id',
+				'opis' => 'nullable|string',
+			]);
+			$validated['wlasciciel_id'] = session('user')['id'];
+		}
 
 		// Przypisanie nowych danych do obiektu
 		$kot->nazwa = $validated['nazwa'];
@@ -89,7 +119,7 @@ class KotyController extends Controller
 
 		// Zapisanie zmian
 		$kot->save();
-
+		Logi::utworzLogi('zaktualizowanie danych kota');
 		return redirect()->route('koty.index')->with('success', 'Dane kota zostały zaktualizowane.');
 	}
 
@@ -99,6 +129,7 @@ class KotyController extends Controller
     {
         $kot = Kot::findOrFail($id);  // Pobieramy kota po id
         $kot->delete();  // Usuwamy kota
+		Logi::utworzLogi('usunięto kota');
 
         return redirect()->route('koty.index');  // Przekierowujemy na stronę listy kotów
     }

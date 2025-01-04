@@ -38,6 +38,7 @@ class WystawyController extends Controller
         ]);
 
         Wystawa::create($request->all());
+		Logi::utworzLogi('Utworzono wystawę');
 
         return redirect()->route('wystawy.index');
     }
@@ -68,6 +69,7 @@ class WystawyController extends Controller
         ]);
 
         $wystawy->update($request->all());
+		Logi::utworzLogi('zaktualizowano wystawę');
 
         return redirect()->route('wystawy.index');
     }
@@ -79,6 +81,7 @@ class WystawyController extends Controller
     {
 		$wystawy = Wystawa::findOrFail($id);  // Pobieramy użytkownika po id
 		$wystawy->delete();
+		Logi::utworzLogi('usunięto wystawę');
         return redirect()->route('wystawy.index');
     }
 }

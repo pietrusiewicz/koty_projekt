@@ -9,6 +9,7 @@ class Zamowienie extends Model
     use HasFactory;
 
     protected $table = 'zamowienia';
+	public $timestamps = false;
 
     protected $fillable = [
         'klient_id',
@@ -17,6 +18,7 @@ class Zamowienie extends Model
         'status',
         'status_platnosci',
     ];
+
 
     // Relacja: Zamówienie należy do użytkownika (klienta)
     public function klient()

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Zamowienie;
 use App\Models\Uzytkownik;
+use App\Models\Logi;
 use Illuminate\Http\Request;
 
 class ZamowieniaController extends Controller
@@ -32,7 +33,8 @@ class ZamowieniaController extends Controller
             'status' => 'required|in:oczekujące,zrealizowane',
             'status_platnosci' => 'required|in:oczekująca,zapłacona',
         ]);
-
+		
+		Logi::utworzLogi('utworzenie zamówienia');
         Zamowienie::create($request->all());
         return redirect()->route('zamowienia.index')->with('success', 'Zamówienie zostało dodane.');
     }
@@ -70,6 +72,7 @@ class ZamowieniaController extends Controller
         ]);
 
         $zamowienie->update($request->all());
+		Logi::utworzLogi('zaktualizowano zamówienie');
         return redirect()->route('zamowienia.index')->with('success', 'Zamówienie zostało zaktualizowane.');
     }
 
@@ -82,4 +85,21 @@ class ZamowieniaController extends Controller
         $zamowienie->delete();
         return redirect()->route('zamowienia.index')->with('success', 'Zamówienie zostało usunięte.');
     }
+	public function oplac($id)
+	{
+		// Pobieramy zamówienie na podstawie ID
+		$zamowienie = Zamowienie::find($id);
+
+		if (!$zamowienie) {
+			return redirect()->route('zamowienia.index')->with('error', 'Zamówienie nie zostało znalezione!');
+		}
+
+		// Symulujemy opłacenie zamówienia
+		$zamowienie->status_platnosci = 'zapłacona'; // Zmiana statusu płatności
+		$zamowienie->status = 'zrealizowane'; // Zmiana statusu zamówienia
+		$zamowienie->save(); // Zapisanie zmian
+
+		Logi::utworzLogi('usunięto zamówienie');
+		return redirect()->route('zamowienia.index')->with('success', 'Zamówienie zostało opłacone i zrealizowane!');
+	}
 }

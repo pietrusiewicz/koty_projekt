@@ -57,7 +57,7 @@ class AuthController extends Controller
 		
 		if ($a == $b) {
 			//Auth::login($uzytkownik);
-			session(['user'=>$uzytkownik->nazwa_uzytkownika]);
+			session(['user'=>$uzytkownik]);
 			return redirect()->route('home');
         } else {		dd($request->all());
 			return back()->withErrors(['email' => 'Nieprawidłowe dane logowania.']);
