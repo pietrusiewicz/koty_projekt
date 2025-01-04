@@ -34,15 +34,19 @@
     </div>
 
     <div class="form-group">
+		@if(in_array(session('user')->rola, ['administrator', 'pracownik']))
         <label for="wlasciciel_id">Właściciel</label>
-        <select name="wlasciciel_id" id="wlasciciel_id" class="form-control" required>
-            <option value="">-- Wybierz właściciela --</option>
-            @foreach($uzytkownicy as $uzytkownik)
-                <option value="{{ $uzytkownik->id }}" {{ old('wlasciciel_id') == $uzytkownik->id ? 'selected' : '' }}>
-                    {{ $uzytkownik->nazwa_uzytkownika }}
-                </option>
-            @endforeach
-        </select>
+			<select name="wlasciciel_id" id="wlasciciel_id" class="form-control" required>
+				<option value="">-- Wybierz właściciela --</option>
+					@foreach($uzytkownicy as $uzytkownik)
+						<option value="{{ $uzytkownik->id }}" {{ old('wlasciciel_id') == $uzytkownik->id ? 'selected' : '' }}>
+							{{ $uzytkownik->nazwa_uzytkownika }}
+						</option>
+					@endforeach
+			</select>
+
+		@endif
+			
     </div>
 	<div class="form-group">
         <label for="kategoria_id">Kategoria</label>

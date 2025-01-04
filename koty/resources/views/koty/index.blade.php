@@ -7,8 +7,8 @@
 
     <table class="table table-bordered">
         <thead>
-            <tr>
-                <th>Nazwa</th>
+			<tr>
+				<th>Nazwa</th>
 				<th>Rasa</th>
 				<th>Wiek</th>
 				<th>Kolor</th>
@@ -16,28 +16,52 @@
 				<th>Właściciel</th>
 				<th>Kategoria</th>
 				<th>Akcje</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($koty as $kot)
-                <tr>
-                    <td>{{ $kot->nazwa }}</td>
-					<td>{{ $kot->rasa }}</td>
-					<td>{{ $kot->wiek }}</td>
-					<td>{{ $kot->kolor }}</td>
-					<td>{{ $kot->plec }}</td>
-					<td>{{ $uzytkownicy->find($kot->wlasciciel_id)->nazwa_uzytkownika }}</td>
-					<td>{{ $kategorie->find($kot->kategoria_id)->nazwa }}</td>
-					<td>
-						<a href="{{ route('koty.edit', $kot->id) }}" class="btn btn-warning">Edytuj</a>
-						<form action="{{ route('koty.destroy', $kot->id) }}" method="POST" style="display:inline;">
-							@csrf
-							@method('DELETE')
-							<button type="submit" class="btn btn-danger">Usuń</button>
-						</form>
-					</td>
-                </tr>
-            @endforeach
+			</tr>
+		</thead>
+		<tbody>
+			@if(in_array(session('user')->rola, ['administrator', 'pracownik']))
+				@foreach($koty as $kot)
+					<tr>
+						<td>{{ $kot->nazwa }}</td>
+						<td>{{ $kot->rasa }}</td>
+						<td>{{ $kot->wiek }}</td>
+						<td>{{ $kot->kolor }}</td>
+						<td>{{ $kot->plec }}</td>
+						<td>{{ $uzytkownicy->find($kot->wlasciciel_id)->nazwa_uzytkownika }}</td>
+						<td>{{ $kategorie->find($kot->kategoria_id)->nazwa }}</td>
+						<td>
+							<a href="{{ route('koty.edit', $kot->id) }}" class="btn btn-warning">Edytuj</a>
+							<form action="{{ route('koty.destroy', $kot->id) }}" method="POST" style="display:inline;">
+								@csrf
+								@method('DELETE')
+								<button type="submit" class="btn btn-danger">Usuń</button>
+							</form>
+						</td>
+					</tr>
+				@endforeach
+			@elseif(session('user')->rola == 'klient')
+				@foreach($koty as $kot)
+					@if(session('user')->nazwa_uzytkownika == $uzytkownicy->find($kot->wlasciciel_id)->nazwa_uzytkownika)
+					<tr>
+						<td>{{ $kot->nazwa }}</td>
+						<td>{{ $kot->rasa }}</td>
+						<td>{{ $kot->wiek }}</td>
+						<td>{{ $kot->kolor }}</td>
+						<td>{{ $kot->plec }}</td>
+						<td>{{ $uzytkownicy->find($kot->wlasciciel_id)->nazwa_uzytkownika }}</td>
+						<td>{{ $kategorie->find($kot->kategoria_id)->nazwa }}</td>
+						<td>
+							<a href="{{ route('koty.edit', $kot->id) }}" class="btn btn-warning">Edytuj</a>
+							<form action="{{ route('koty.destroy', $kot->id) }}" method="POST" style="display:inline;">
+								@csrf
+								@method('DELETE')
+								<button type="submit" class="btn btn-danger">Usuń</button>
+							</form>
+						</td>
+					</tr>
+					@endif
+				@endforeach
+			@endif
         </tbody>
     </table>
 </div>

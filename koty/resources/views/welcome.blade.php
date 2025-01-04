@@ -9,15 +9,16 @@
     </section>
 
     <section class="exhibitions">
+        <h2>Nadchodzące Wystawy</h2>
 		@foreach($wystawy as $wystawa)
 
-        <h2>Nadchodzące Wystawy</h2>
 		<div>
 		    <h3>{{ $wystawa->nazwa }}</h3>
             <p>{{ $wystawa->data_rozpoczecia }}</p>
             <p>{{ $wystawa->data_zakonczenia }}</p>
 			<p>{{ $wystawa->miejsce }}</p>
 		</div>
+		<hr/>
         @endforeach
 
     </section>
