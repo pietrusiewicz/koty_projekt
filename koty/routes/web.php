@@ -38,6 +38,7 @@ Route::resource('kategorie', KategorieController::class);
 Route::resource('oceny', OcenyController::class);
 Route::resource('bilety', BiletyController::class);
 Route::resource('zamowienia', ZamowieniaController::class);
+Route::put('/zamowienia/{id}/oplac', [ZamowieniaController::class, 'oplac'])->name('zamowienia.oplac');
 Route::resource('szczegoly-zamowienia', SzczegolyZamowieniaController::class);
 Route::resource('pracownicy', PracownicyController::class);
 Route::resource('logi', LogiController::class);
