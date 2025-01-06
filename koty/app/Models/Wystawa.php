@@ -9,6 +9,8 @@ class Wystawa extends Model
     use HasFactory;
 
     protected $table = 'wystawy';
+    public $timestamps = false;
+
 
     protected $fillable = [
         'nazwa',

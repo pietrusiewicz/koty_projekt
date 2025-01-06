@@ -9,6 +9,8 @@ class Kot extends Model
     use HasFactory;
 
     protected $table = 'koty';
+    public $timestamps = false;
+
 
     protected $fillable = [
         'nazwa',

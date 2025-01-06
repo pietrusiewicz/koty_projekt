@@ -9,6 +9,7 @@ class Ocena extends Model
     use HasFactory;
 
     protected $table = 'oceny';
+    public $timestamps = false;
 
     protected $fillable = [
         'kot_id',

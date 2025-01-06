@@ -13,6 +13,8 @@ class Uzytkownik extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $table = 'uzytkownicy';
+    public $timestamps = false;
+
 	
 	protected $primaryKey = 'id';
     

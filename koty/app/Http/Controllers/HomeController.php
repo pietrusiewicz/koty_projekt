@@ -23,6 +23,6 @@ class HomeController extends Controller
     {
         $wystawy = Wystawa::all();
 
-        return view('welcome', compact('wystawy'));
+        return view('home', compact('wystawy'));
     }
 }
