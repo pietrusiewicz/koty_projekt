@@ -7,7 +7,7 @@
 
 ### 0. Zbudowanie obrazu Docker
 Zbuduj obraz Docker za pomocą poniższego polecenia:<br/>
-```bash docker build -t laravel-container .```
+```docker build -t laravel-container .```
 
 ### 1. Uruchomienie kontenera Docker z aplikacją Laravel
 
