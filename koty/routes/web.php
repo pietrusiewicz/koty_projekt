@@ -46,4 +46,5 @@ Route::resource('metody-platnosci', MetodyPlatnosciController::class);
 Route::resource('sponsorzy', SponsorzyController::class);
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+//Route::get('/', [HomeController::class, 'index'])->name('home');
