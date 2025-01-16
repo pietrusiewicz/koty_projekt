@@ -27,7 +27,7 @@
                     <li><a href="{{ route('oceny.index') }}">Oceny</a></li>
                     <li><a href="{{ route('bilety.index') }}">Bilety</a></li>
                     <li><a href="{{ route('zamowienia.index') }}">Zamówienia</a></li>
-                    <li><a href="{{ route('pracownicy.index') }}">Pracownicy</a></li>
+                    <!--<li><a href="{{ route('pracownicy.index') }}">Pracownicy</a></li>-->
                     <li><a href="{{ route('logi.index') }}">Logi</a></li>
                     <li><a href="{{ route('metody-platnosci.index') }}">Metody Płatności</a></li>
                     <li><a href="{{ route('sponsorzy.index') }}">Sponsorzy</a></li>
@@ -64,7 +64,8 @@
             </div>
         @endif
     </header>
-
+    <button id="increaseFont" class="btn btn-primary">Powiększ czcionkę</button>
+    <button id="decreaseFont" class="btn btn-secondary">Pomniejsz czcionkę</button>
     
 
     <main>
@@ -81,6 +82,24 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mainContent = document.querySelector('main');
+            let fontSize = 16; // Domyślny rozmiar czcionki
+
+            document.getElementById('increaseFont').addEventListener('click', function () {
+                fontSize += 2;
+                mainContent.style.fontSize = fontSize + 'px';
+            });
+
+            document.getElementById('decreaseFont').addEventListener('click', function () {
+                if (fontSize > 10) { // Zapobiega zbyt małej czcionce
+                    fontSize -= 2;
+                    mainContent.style.fontSize = fontSize + 'px';
+                }
+            });
+        });
+    </script>
 	
 </body>
 </html>
